@@ -1,11 +1,14 @@
 li {
-	list-style-type: none;
-	font-style: "Courier New", Courier, monospace;
-	font-size: 40px;
+  list-style-type: none;
+  font-style: "Courier New", Courier, monospace;
+  font-size: 20px;
 }
+
 .concepts {
-	width: 500px;
-  border: 5px solid pink;
-  padding: 50px;
+  width: 500px;
   margin: 20px;
+}
+
+h2 {
+  margin-left: 40px;
 }

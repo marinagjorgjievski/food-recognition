@@ -17,7 +17,7 @@ const app = new Clarifai.App({
 const particlesOptions = {
   particles: {
     number: {
-      value: 30,
+      value: 100,
       density: {
         enable: true,
         value_area: 800
@@ -39,7 +39,6 @@ class App extends Component {
   }
 
   calculateImageLocation = (data) => {
-
     const clarifaiFood = data.outputs[0].data.concepts;
     let ingredients = [];
     clarifaiFood.forEach(function (item) {
@@ -48,12 +47,15 @@ class App extends Component {
 
     return ingredients;
   }
+
   displayFoodBox = (ingredients) => {
     this.setState({ingredients:ingredients});
   }
+
   onInputChange = (event) => {
     this.setState({input: event.target.value});
   }
+
   onButtonSubmit = () => {
     this.setState({imageURL: this.state.input});
     app.models
@@ -68,7 +70,7 @@ class App extends Component {
   onRouteChange = (route) => {
     if (route === 'signout') {
       this.setState({isSignedIn:false})
-    } else if(route === 'home') {
+    } else if (route === 'home') {
       this.setState({isSignedIn:true})
     }
     this.setState({route: route});
@@ -78,23 +80,26 @@ class App extends Component {
     const { isSignedIn, imageURL, route, ingredients } = this.state;
     return (
       <div className="App">
-        <Particles className = 'particles'
+        <Particles 
+          className = 'particles'
           params={particlesOptions}
         />
-        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
-        { route === 'home' 
-          ? <div>
-              <Logo/>
-              <Rank/>
-              <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/>
-              <FoodRecognition ingredients={ingredients} imageURL={imageURL}/>
-            </div>
+        <Navigation 
+          isSignedIn={isSignedIn} 
+          onRouteChange={this.onRouteChange}/>
+          { route === 'home' 
+            ? <div>
+                <Logo/>
+                <Rank/>
+                <ImageLinkForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit}/>
+                <FoodRecognition ingredients={ingredients} imageURL={imageURL}/>
+              </div>
             : (
                 route === 'signin' 
                 ? <Signin onRouteChange={this.onRouteChange}/>
                 : <Register onRouteChange={this.onRouteChange}/>
               )
-        }
+          }
       </div>
     );
   }
